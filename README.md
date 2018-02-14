@@ -3,6 +3,9 @@
 # Owner Details
 ---
 owner:
-  - firstname: "Joao Paulo"
+  - firstname: "John"
   - lastname: "Leite"
   - community: "e516"
+
+alias:
+  - firstname: "Joao Paulo"
