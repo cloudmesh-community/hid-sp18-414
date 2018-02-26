@@ -1,0 +1,4 @@
+Hyperledger Fabric is the most well known of all the Linux foundation Hyperledger projects. 
+Initially created by IBM, it’s intent was to be a foundation for developing distributed ledger 
+applications. With its modular design and vision for creating many components that can be 
+plug-and-play. \cite{Hyperledger Fabric}
