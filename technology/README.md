@@ -36,7 +36,7 @@ After you have modified your files you want to make a test compile with
     cd ~/github/cloudmesh-community/hid-sp18-999/technology
     make
     
-You will see that in dest a pdf file is created that you can look at
+You will see that in dest a pdf file is created that you can look at 
 
 You will need in all five abstracts in the technology folder.   Each file name should have the following format:
 
