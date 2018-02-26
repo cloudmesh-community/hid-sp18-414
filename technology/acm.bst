@@ -14,7 +14,7 @@
 %%%  }
 %%% ====================================================================
 
-%%% Revision history:  see source in git
+%%% Revision history:  see source in git 
 
 ENTRY
   { address
