@@ -3,9 +3,9 @@
 # Owner Details
 ---
 owner:
-  - firstname: "John"
-  - lastname: "Leite"
-  - community: "e516"
+  firstname: "John"
+  lastname: "Leite"
+  community: "e516"
 
 alias:
-  - firstname: "Joao Paulo"
+  firstname: "Joao Paulo"
