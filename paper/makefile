@@ -23,34 +23,21 @@ endif
 #>> report-latex.log 2>&1
 #	make -f Makefile check >> report-latex.log 2>&1
 
-all: clean
-	$(LATEX) ${FILE}
+all: clean iureport
 	$(LATEX) ${FILE}
 	$(BIBTEX) ${FILE}
 	$(LATEX) ${FILE}
+	$(LATEX) ${FILE}
+
+iureport:
+	cp ../../hid-sample/tex/format/iureport.cls .
+	cp ../../hid-sample/tex/format/ACM-Reference-Format.bst .
 
 check:
 	chktex -q -n 13 -n 8 content.tex
 
 check-ta:
 	@python 	../../hid-sample/paper/check.py 
-
-#	make -f Makefile quote-error >> report-latex.log 2>&1
-#	make -f Makefile yaml-error >> report-latex.log 2>&1
-#	make -f Makefile figure-check >> report-latex.log 2>&1
-#	make -f Makefile format-check >> report-latex.log 2>&1
-#	make -f Makefile none-ascii >> report-latex.log 2>&1
-#	make -f Makefile footnote-error >> report-latex.log 2>&1
-#	make -f Makefile wordcount-report >> report-latex.log 2>&1
-#	cat report-latex.log
-
-simple:
-	pdflatex ${FLAGS} ${FILE} 
-	make -f Makefile bibtex
-	pdflatex ${FLAGS} ${FILE}
-	pdflatex ${FLAGS} ${FILE} 
-
-
 
 bibtex:
 	@echo 
@@ -208,6 +195,9 @@ pack:
 clean:
 	rm -rf *~ *.aux *.bbl *.dvi *.log *.out *.blg *.pdf *.toc *.fdb_latexmk *.fls *.fff *.lof *.lot *.ttt *.cut
 	rm -rf _region_.*
+	rm -f iureport.cls
+	rm -f ACM-Reference-Format.bst
+
 
 view:
 	$(OPEN) ${FILE}.pdf
@@ -249,3 +239,7 @@ bib-extract:
 skim:
 	echo $(DEFAULT)
 	open -a /Applications/skim.app $(DEFAULT).pdf
+
+doc:
+	make
+	mv report.pdf ../paper-instructions.pdf
