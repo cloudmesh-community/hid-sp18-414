@@ -1,0 +1,79 @@
+\title{Blockchain and Distrubuted Ledger Technology}
+
+
+\author{Joao Paulo Leite}
+\affiliation{%
+  \department{School of Informatics, Computing, and Engineering}
+  \institution{Indiana University}
+  \city{Bloomington}
+  \state{IN}
+  \postcode{47408}
+  \country{USA}}
+\email{jleite@iu.edu}
+
+
+% The default list of authors is too long for headers}
+\renewcommand{\shortauthors}{J. Leite}
+
+
+\begin{abstract}
+Just as the internet has altered our daily lives and transform industries, Blockchain and distributed ledger technologies is promising to continue to revolutionize many aspects of our society.  Blockchain is most famously known as the backbone and underlying technology to cryptocurrencies such as Bitcoin and Ethereum.  From the onset, the goal of these cryptocurrencies was to eliminate centralization and to create an open and inclusive global currency. To accomplish these goals, the Blockchain relies on a distributed ledger that contains transactional information shared amongst members. Transactions occurring on the Blockchain are confirmed by a majority through the use of consensus algorithms that provide protection against any fraudulent transactions. As records (blocks) are confirmed and added to the ledger, they become a permanent part of the chain and are unalterable. With the attention that has been garnered by these cryptocurrencies, the aim of many now is to explore all of the use cases for Blockchain technology and to understand the impact that the technology may have on our daily lives. 
+
+\end{abstract}
+
+\keywords{hid-sp18-414, Blockchain, Distributed Ledger, Consensus Algorithm, Cryptocurrency}
+
+
+\maketitle
+
+
+\section{Introduction}
+The idea of blockchain was first presented in the white paper``Bitcoin: A Peer-to-Peer Electronic Cash System'' by Satoshi Nakamoto in early 2008. While others had come close to creating a working model, Nakamoto’s paper differentiated itself by providing details around the recording of transactions, the problem of double spend, controlling the supply of bitcoins, maintaining privacy for members and ensuring security~\cite{hid-sp18-414-www-blockchain-theory-application}. While is it important to understand Bitcoin, in recent years many people have begun to look at how the underlying Blockchain technology can revolutionize their fields.  As stated in the Harvard Business Review, ``In this world every agreement, every process, every task, and every payment would have a digital record and signature that could be identified, validated, stored, and shared. Intermediaries like lawyers, brokers, and bankers might no longer be necessary. Individuals, organizations, machines, and algorithms would freely transact and interact with one another with little friction. This is the immense potential of blockchain'' ~\cite{hid-sp18-414-Truth-Blockchain}. Because of this immense potential, blockchain technology will continue to grow and evolve.  As such, this evolutionary process has produced three distinct generations of Blockchain: Blockchain 1.0 for digital currency, Blockchain 2.0 for digital finance, and Blockchain 3.0 for digital society~\cite{hid-sp18-414-financialinnovation-zhao}.
+
+\section{Blockchain 1.0 - Cryptocurrency}
+
+Blockchain 1.0 is considered the first iteration of blockchain technology. It has three main components which are the underlying technology platform (mining, hashing, and the public ledger), the overlying protocol (transaction enabling software), and the digital currency~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}. The underlying technology used in Blockchain 1.0 has served as a building block to the future iterations. We will explore two of the most important aspects of this technology, the cryptography used to secure transactions and the consensus algorithms used to build and validate the blockchain. 
+
+\subsection{Cryptography}
+
+The use of cryptography is fundamental in providing secure digital signatures to the transactions which take place on the blockchain. There are two main asymmetric cryptographic methods that could have been used for the blockchain, RSA and Elliptical Curve Cryptography (ECC). While RSA remains a very popular method of encryption, Bitcoin and Ethereum use ECC. As stated by Ameer Rosic from BlockGeeks, ``The reason why EEC was chosen over RSA is because it offers the same level of security as RSA by consuming far less bits. Eg. for a 256-bit key in EEC to offer the same level of security RSA will have to provide a 3072-bit key. Similarly, for a 384-bit key in EEC the RSA will have to provide a 7680- bit key to provide the same level of security! As can be seen, EEC is far more efficient than RSA''~\cite{hid-sp18-414-www-science-cryptocurrencies-cryptography}. The reason why size is so important is because every new block that is created on the chain has a size limitation, placing a premium on the size of the key used to encrypt transactions~\cite{hid-sp18-414-www-ECDSA-vs-RSA}.
+
+So how exactly is EEC used in the blockchain? It provides two separate keys to each user, a public key and a private key. The public key is hashed through several algorithms to produce a wallet address and the associated private key is used to access and control the wallet. When a user wants to initiate a transaction, they must have three pieces of information: a wallet address (a public key), a private key (to access and control the funds within one’s wallet) and the wallet address of the person they would like to transact with~\cite{hid-sp18-414-www-science-cryptocurrencies-cryptography}.
+
+\subsection{Consensus Algorithms}
+
+The first consensus algorithm to be deploy is known as Proof of Work (PoW). This algorithm provides miners with extremely difficult cryptographic puzzles that can only be solved through brute force. When a miner solves the puzzle, they announce the solution to the network and are awarded a prize for solving the puzzle. As more miners enter the network and add resources (CPU power) to the mining pool, the difficulty of the puzzle is adjusted to ensure that a new block will only be added at a predefined time interval~\cite{hid-sp18-414-www-pow-vs-pos}. This algorithm provides a trustless and distributed consensus that is critical to the success and security of many Blockchains; however, there are some downsides to this approach. Critics of this approach state, ``… this consensus algorithm requires enormous amounts of computational energy, that it cannot scale to accommodate for a large number of transactions and that it leads to centralization of mining power where electricity is cheap''~\cite{hid-sp18-414-www-blockchain-consensus-protocols}.
+
+To combat the downsides of PoW, the leading alternative is Proof of Stake (PoS). The differences between PoW and PoS are that miners are replaced by validators and coins are no longer mined but rather exist from the onset. The process begins with validators who stake their coins on the block they deem correct and once a consensus is reached, that block is committed to the chain. Thus, the issues associated with PoW are no longer present in PoS as the system is no longer reliant on raw CPU power.  Critics of PoS have pointed out that because there is no “Proof of Work”, this system does not have a mechanism to combat bad actors since they have ``Nothing at stake''~\cite{hid-sp18-414-www-pow-vs-pos}. To combat this issue, the most recent iteration of Proof of Stake relies on slashing conditions, which provides a penalty for bad actors. As stated by Vitalik Buterin, the creator of Ethereum, ``Economic finality is accomplished by requiring validators to submit deposits to participate, and taking away their deposits if the protocol determines that they acted in some way that violates some set of rules (‘slashing conditions’)''~\cite{hid-sp18-414-www-pow-vs-pos}.
+
+
+
+\section{Blockchain 2.0 - Smart Contracts}
+
+While Blockchain 2.0 leverages the technologies discussed above, it further looks beyond optimizing the simple payment, transfers and transaction that has been sole focus of Blockchain 1.0.  The scope of applications include traditional banking instruments (loans and mortgages), complex financial instruments (stocks, bonds, futures, derivatives) and legal instruments (titles, contracts, and other assets)~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}. As such, Blockchain 2.0’s main focus is to provide a platform to build and execute smart contracts. This concept first proposed by Nick Szabo in the 90’s who stated,``The basic idea of smart contracts is that many kinds of contractual clauses (such as liens, bonding, delineation of property rights, etc.) can be embedded in the hardware and software we deal with, in such a way as to make breach of contract expensive (if desired, sometimes prohibitively so) for the breacher''~\cite{hid-sp18-414-www-blockchain-theory-application}.
+
+These smart contracts aim to enhance fraud prevention, allow for transparency in the contract definition and reduces the cost of verifying, executing and enforcing the contract. The most prominent and widely used platform for creating smart contracts at the moment is the Ethereum Blockchain~\cite{hid-sp18-414-www-blockchain-evolution}.
+
+An example of the blockchain technology being used in finance is set to go live later this year. The Depository Trust and Clearing Corporation (DTCC) is an organization which provides clearing and settling services to financial markets. In fact, almost every broker and institutional investor that trades US-based securities, settles those trades through the DTCC~\cite{hid-sp18-414-wallstreet-blockchain}. Later this year, their blockchain project is set to be deployed in production to run parallel to their current legacy warehouse. The goal for the DTCC is to have the blockchain system as their production settlement system by the end of 2018. If they meet that goal, the system would be responsible for the entire global credit default swap market, currently valued at 11 trillion dollars~\cite{hid-sp18-414-www-blockchain-2.0}.
+
+\section{Blockchain 3.0 - Decentralized Applications}
+Going further, Blockchain 3.0 refers to all of the applications that can exist outside of the currency (Blockchain 1.0) and financial/legal (Blockchain 2.0) space. Such applications include but is not limited to art, health, science, identity, governance, education, public goods, and other aspects of culture and communication~\cite{hid-sp18-414-www-blockchain-theory-application}.
+
+The real focus of blockchain 3.0 is to enable the construction of decentralized applications for all industries. While these applications can share the same front-end interface and code as their centralized predecessors, these applications would use decentralized storage and communication so that their back end code runs on decentralized peer to peer networks (a blockchain)~\cite{hid-sp18-414-www-blockchain-evolution}.
+
+One of the use cases showing much promise currently being explored is in the digital identity management space. In the case of digital identity, it could simplify process of verifying and validating your identity when dealing with any organization. For instance, financial institutions are required to comply with regulations that require verifying the identity of their clients (Know Your Customer policy). Having a digital identity stored on the blockchain could streamline the process of going from an unknown entity to a verified customer.~\cite{hid-sp18-414-beyond-bitcoin}. 
+
+\section{Conclusion}
+
+Blockchain technology has an infinite number of use cases and its prominence in various industries will continue to grow as the technology evolves. By that same token, adoption will only increase with more awareness and understanding of both the origins of the technology as well as the innovation that is taking place to solve some of the pressing problems with the current iteration.
+
+
+\begin{acks}
+
+  The author would like to thank Dr.~Gregor~von~Laszewski for his
+  support and suggestions to write this paper.
+
+\end{acks}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{report} 
