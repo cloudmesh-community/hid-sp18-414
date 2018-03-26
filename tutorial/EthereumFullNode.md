@@ -5,7 +5,7 @@
 Introduction
 ------------
 
-This tutorial is a step by step guide to setting up a Ethereum Node on the operating system of your choice(Windows or Linux). Once a full node is setup, you will have the ability to create/manage accounts, transfer Ethereum and mine Ethereum. This tutorial will leverage Geth, which is a command line interface used to run a full ethereum node, which was developed in Go.
+This tutorial is a step by step guide to setting up a Ethereum Node on the operating system of your choice(Windows or Linux). This tutorial will leverage Geth, which is a command line interface used to run a full ethereum node, which was developed in Go.
 
 Documentation
 -------------
