@@ -45,5 +45,43 @@ For more detailed information about the peers you are connected to, the admin.pe
 
 Account Management
 ---------------
-		
 
+To see your list of accounts:
+
+	>eth.accounts
+
+With a fresh install, you will have no accounts.
+		
+To create a new account, within the console window use the command:
+	
+	>personal.newAccount()
+
+Which will then ask for a passphrase
+
+	passphrase:
+	Repeat passphrase:
+
+Now when you check eth.accounts, it should return an address
+
+	>eth.accounts
+	0xb829cb4aedec44dac29dec88537cdac8705bacb0
+
+To update an account, within the console window use the command:
+
+	update 0xb829cb4aedec44dac29dec88537cdac8705bacb0
+
+Which will then ask for the current passphrase:
+
+	Unlocking account 0xb829cb4aedec44dac29dec88537cdac8705bacb0 | Attempt 1/3
+	Passphrase:
+
+And then a prompt to update the account's passphrase
+
+	Please give a new password. Do not forget this password.
+	Passphrase:
+	Repeat passphrase:
+
+	
+	
+	
+	
