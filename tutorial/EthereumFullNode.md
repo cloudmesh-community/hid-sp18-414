@@ -9,13 +9,13 @@ This tutorial is a step by step guide to setting up a Ethereum Node on the opera
 
 Documentation
 -------------
-	Documentation at [https://ethereum.gitbooks.io/frontier-guide/content/](https://ethereum.gitbooks.io/frontier-guide/content/ "Frontier Guide")
+Documentation at [https://ethereum.gitbooks.io/frontier-guide/content/](https://ethereum.gitbooks.io/frontier-guide/content/ "Frontier Guide")
 
 
 Requirements
 ------------
 
-	Windows or Linux environment with atleast 65 GB of storage available.
+Windows or Linux environment with atleast 65 GB of storage available.
 
 Installation
 ------------
@@ -36,7 +36,11 @@ Installation
 Checking Connectivity
 -------------
 	
-	To check that your node is currently connected to the network you first need to run geth Console to open the interactive console. Once the console is open, you can use the net module to explore the current connectivity status of your node. The two most common commands to use are net.listening and net.peerCount. The listening command returns true or false symbolizing if you are a listening node and the peerCount command will return the number of peers your node is currently connected to. For more detailed information about the peers you are connected to, the admin.peers() module will return detailed information such as names, IP Addresses, Ports used and support versions. 
+To check that your node is currently connected to the network you first need to run geth Console to open the interactive console. Once the console is open, you can use the net module to explore the current connectivity status of your node. 
+
+The two most common commands to use are net.listening and net.peerCount. The listening command returns true or false symbolizing if you are a listening node and the peerCount command will return the number of peers your node is currently connected to. 
+
+For more detailed information about the peers you are connected to, the admin.peers() module will return detailed information such as names, IP Addresses, Ports used and support versions. 
 
 
 Account Management
