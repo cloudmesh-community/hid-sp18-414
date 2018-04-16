@@ -28,9 +28,9 @@ curl:
 		-X POST \
 		-d '{"phrase":"bonjour","trans_lang":"English"}' \
 		http\://localhost\:8080/translate    		
-docker-build:
+docker-b:
 	docker build -t cloudmesh-language.
-docker-start:
+docker-s:
 	docker run -t -p 8080:8080 cloudmesh-language
 clean:
 	rm -rf server/
