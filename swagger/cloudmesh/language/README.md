@@ -26,5 +26,5 @@ This API can identify the language of the submitted string and translate the str
       "\"Hello\""
 
   To run with Docker:
-   - Step 1: make docker-build
-   - Step 2: make docker-start
+   - Step 1: make docker-b
+   - Step 2: make docker-s
