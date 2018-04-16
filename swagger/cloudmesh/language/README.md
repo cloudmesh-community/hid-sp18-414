@@ -9,10 +9,10 @@ This API can identify the language of the submitted string and translate the str
   - Step 1:Make codegen
   - Step 1a:Make requirements(only needed on first run thru)
   - Step 2:Make generate
-  Step 3:Make run
+  - Step 3:Make run
     Console should output the following message:
      * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
-  Step 4:Make curl
+  - Step 4:Make curl
     Console should output the following message:
       curl -H "Content-Type: application/json" \
         -X POST \
@@ -26,5 +26,5 @@ This API can identify the language of the submitted string and translate the str
       "\"Hello\""
 
   To run with Docker:
-    Step 1:make docker-build
-    Step 2:make docker-start
+   - Step 1:make docker-build
+   - Step 2:make docker-start
