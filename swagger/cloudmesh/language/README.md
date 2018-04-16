@@ -6,9 +6,9 @@ This API can identify the language of the submitted string and translate the str
  
  ### Setup:
   
-  Step 1:Make codegen
-  Step 1a:Make requirements(only needed on first run thru)
-  Step 2:Make generate
+  - Step 1:Make codegen
+  - Step 1a:Make requirements(only needed on first run thru)
+  - Step 2:Make generate
   Step 3:Make run
     Console should output the following message:
      * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
