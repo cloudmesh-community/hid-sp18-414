@@ -1,0 +1,45 @@
+---
+swagger: "2.0"
+info:
+  title: Cloudmesh Language Identification
+  version: "0.0.1"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /language:
+    post:
+      description: language input
+      operationId: do_check
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "language"
+          
+      #parameters:
+      #  - name: data
+      #    description: Checks the language of the string.
+      #    in: body
+      #    type: string
+      #    required: true
+  /translate:
+    post:
+      description: translate input
+      operationId: do_trans
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "translation"
+          
+      #parameters:
+      #  - name: data
+      #    description: Translate the string to the target languge.
+      #    in: body
+      #    type: string
+      #    required: true  
+        
+
