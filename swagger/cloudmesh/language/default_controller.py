@@ -5,7 +5,6 @@ from flask import request
 from textblob import TextBlob
 
 def do_check():
-
 	data = json.loads(request.data)
 	check = TextBlob(data['phrase'])
 	output = pycountry.languages.get(alpha_2=check.detect_language())
