@@ -21,3 +21,18 @@ Blockchain API to demonstrate a distrubuted ledger system.
 		-X POST \
 		-d '{"nodes": ["http://127.0.0.1:8888"]}' \
 		http\://localhost\:9999/register
+  - chain
+    *	curl -H "Content-Type: application/json" \
+		-X GET \
+		http\://localhost\:8888/chain
+
+  - consensus
+    *	curl -H "Content-Type: application/json" \
+		-X GET \
+		http\://localhost\:8888/consensus
+
+  - newtransaction
+    *	curl -H "Content-Type: application/json"  \
+		-X POST \
+		-d '{"sender": "82eab15187ee92c6cd394edd974e", "receiver": "d4ee26sse15109ee92c6csd94fgd9745", "amount": 7}' \
+		http\://localhost\:8888/newtransaction
