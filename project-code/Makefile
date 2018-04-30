@@ -51,6 +51,14 @@ test:
 	
 	curl -H "Content-Type: application/json" \
 		-X GET \
-		http\://localhost\:8888/mine
+		http\://localhost\:9999/mine
+
+	curl -H "Content-Type: application/json" \
+		-X GET \
+		http\://localhost\:8888/consensus
+	
+	curl -H "Content-Type: application/json" \
+		-X GET \
+		http\://localhost\:8888/chain
 	
 		
