@@ -110,7 +110,7 @@ class E516Chain(object):
         'Validates the solution to the PoW'
 
         encoding = f'{oldproof}{proof}{oldhash}'.encode()
-        attempt = hashlib.sha224(encoding).hexdigest()
+        attempt = hashlib.sha256(encoding).hexdigest()
         return attempt[:3] == '000'
 
     def validation_chain(self, chain):
