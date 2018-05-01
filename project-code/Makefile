@@ -1,8 +1,19 @@
+PROJ_NAME=hid-sp18-414
+
 run-node1:
 	python E516Chain.py -p 9999
 
 run-node2:
 	python E516Chain.py -p 8888
+
+docker-build:
+	docker build --network=host -t $(PROJ_NAME) .
+docker-start-1:
+	docker run -d -p 9999:9999 ${PROJ_NAME} run-node1
+docker-start-2:
+	docker run -d -p 8888:8888 ${PROJ_NAME} run-node2
+docker-stop:
+	docker stop $$(docker ps -a -q --filter ancestor=$(PROJ_NAME))
 
 requirements:
 	pip install -r requirements.txt
