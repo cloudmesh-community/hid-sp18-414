@@ -1,4 +1,4 @@
-% status: 40
+% status: 80
 % chapter: TBD
 
 \title{Blockchain Implementation with Flask}
@@ -15,13 +15,13 @@
 \email{jleite@ui.com}
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{J. p. Leite}
+\renewcommand{\shortauthors}{J. P. Leite}
 
 
 \begin{abstract}
 The project is an implementation of Blockchain technology. The main purpose of 
 this paper is to create a simple Blockchain implementation and simulate a 
-network of nodes interact with the Blockchain. To accomplish this, all 
+network of nodes interacting with the Blockchain. To accomplish this, all 
 interaction with the Blockchain are brokered through an API deployed using 
 Python Flask. The goal is to have multiple nodes running and interacting with 
 the Blockchain to show how a distributed ledger system functions.
@@ -35,11 +35,11 @@ the Blockchain to show how a distributed ledger system functions.
 
 \section{Introduction}
 
-The concept of Blockchain technology was first introduced by Satoshi Nakamoto in
-his whitepaper, “Bitcoin: A Peer-to-Peer Electronic Cash System” in early 2008. 
+The concept of blockchain technology was first introduced by Satoshi Nakamoto in
+his whitepaper, “Bitcoin: A Peer-to-Peer Electronic Cash System” in early 2008~\cite{hid-sp18-414-www-blockchain-theory-application}. 
 The concepts that were covered in his original paper is the guideline that was 
-followed to build this Blockchain example. It is important to note that we have 
-developed a simple example that is meant to be an introduction into how 
+followed to build this blockchain example. It is important to note that we have 
+developed a basic example that is meant to be an introduction into how 
 blockchains and distrubuted ledger technology functions. Although the 
 technology has grown tremendously since 2008, this project will focus on the 
 core technology behind Blockchain 1.0. Topics such as smart 
@@ -49,24 +49,356 @@ gives a good foundation to build upon.
 
 \section{Overview of Blockchain Technology}
 
-Blockchain 1.0 is considered the first iteration of Blockchain Technology. 
+Blockchain 1.0 is considered the first iteration of blockchain Technology. 
 Within this iteration, the goal was to eliminate the centralization and to 
 create an open and inclusive global currency. To accomplish this goal, the 
 blockchain is reliant on a distributed ledger which is stored and shared across 
-the network. As records are added to the ledger, they become a permanent and 
-unalterable part of the blockchain. To protect against tampering and bad actors, 
-Consensus algorithms are deployed to ensure that the network is always in 
-agreement as to legitimacy of the chain. The first of these algorithms to be developed (and 
-the one deployed for this project) was the Proof of Work Algorithm. This 
+the network~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}. As records are added to the ledger, they become a permanent and unalterable part of the blockchain. To protect against tampering and bad actors, Consensus algorithms are deployed to ensure that the network is always in agreement as to legitimacy of the chain. The first of these algorithms to be developed (and the one deployed for this project) was the Proof of Work Algorithm. This 
 algorithm relies on extremely difficult cryptographic puzzles(work) which can 
-only be resolved through brute force. Within the network, different 
-members(miners) will attempt to solve this puzzle for a reward. Once they solve 
-the puzzle, they announce the solution to the network. Before the  nodes within the network 
-adopt this new block, they will confirm that the solution provided did in fact solve the 
-puzzle. Once it is confirmed,a new block is recorded on the chain and within this block, a new 
-transactions can be stored. From a functional point of view, once the transactions have been 
-placed in the blockchain, the transaction can be deemed complete.  
+only be resolved through brute force. Within the network, different members(miners) will attempt to solve this puzzle for a reward. Once they solve the puzzle, they announce the solution to the network. Before any node within the network adopts this new block, they will confirm that the solution provided did in fact solve the puzzle. Once it is confirmed,a new block is recorded on the chain and within this block, new transactions can be stored. From a functional point of view, once a transaction have been placed in the Blockchain, the transaction can be deemed complete.~\cite{hid-sp18-414-financialinnovation-zhao}
 
+\section{API}
+
+This project utilizes Python Flask to expose some standard operations that 
+are common with any distributed ledger. The two most fundamental functions to any Blockchain 
+are the posting of transactions and the mining of new blocks. These functions go hand in hand, 
+as new transactions can only be posted to a block when a new block is mined and added to the chain. Some secondary functions that provide stability and agreement between all the nodes 
+in the network is the Consensus algorithm and the discovery of other nodes in the network 
+through Node Registration. Between these four functions, the project is able to product a 
+functioning Blockchain where multiple nodes can interact by posting transactions and mining 
+new blocks, while staying in sync and maintaining the ledger's integrity.
+
+\subsection{Consensus}
+
+The Consensus command is implemented to provide a mechanism to maintain the Blockchain 
+uniformly across all the nodes within the network. In this project, the consensus is resolved 
+by analyzing which Blockchain across all the nodes is the largest. 
+
+\bigskip
+\noindent
+\textbf{Consensus code which analyzes the current nodes length vs the other nodes in the
+network:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    def consensus(self):
+        ...
+        len_chain = len(self.chain)
+        for node in others:
+            response = requests.get(f'http://{node}/chain')
+                if response.status_code == 200:
+                    length = response.json()['len']
+                    chain = response.json()['chain']
+
+                    if length > len_chain
+            
+\end{verbatim}
+\end{footnotesize}
+When one node successfully mines a new block, they broadcast their solution so that the other 
+nodes can begin the adoption process. The other nodes are then responsible to come to a 
+consensus around the legitimacy of the new block. These nodes can quickly validate that the 
+solution(proof) provided does maintain the integrity of the chain by using the solution to 
+solve the cryptographic puzzle. 
+
+\bigskip
+\noindent
+\textbf{Validation code that checks the proposed block's solution
+(\textbf{block['proof']}) as valid:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    def validation_chain(self, chain):
+        ...
+        if not self.validation_block(last_block,block,last_hash):
+            return False
+
+        last_block = block
+        current_index += 1
+
+        return True
+	
+\end{verbatim}
+\end{footnotesize}
+\bigskip
+\noindent
+As each node confirms the solution provided, the block is adopted by that node.
+
+\bigskip
+\noindent
+\textbf{Consensus code which adopts the new blockchain 
+as it's own:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    def consensus(self):
+        ...
+	    if replacement_chain:
+            self.chain = replacement_chain
+            return True
+        return False
+	
+\end{verbatim}
+\end{footnotesize}
+
+If the node is a miner node, once the block has been adopted, all the work done to find the solution is lost and must be restarted with the information of the adopted block.
+
+\subsection{Transactions}
+
+The transaction command provides the ability for a node to issue a transaction which will be 
+published on the blockchain. The transaction function is simplified in this project, 
+consisting only of a sender address, a recipient address and an amount. In a production level 
+scenerio, transactions may include a transaction fee which can be set at the time the transaction is created. This is because each block has a max size which limits the number of transactions that can be posted within a block. Because of this fact, all transactions go to a pool (TX pool) and the transactions offering a higher fees are prioritized. 
+
+\bigskip
+\noindent
+\textbf{Create Transaction code:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    def create_trans(self, sender, recipient, trans_amount):
+        ...
+        self.trans.append({
+
+            'sender_address': sender,
+            'recipient_address': recipient,
+            'trans_amount': trans_amount,
+        })
+        
+\end{verbatim}
+\end{footnotesize}
+
+\subsection{Node Registration}
+
+The registration command provides the ability for a node to register other known nodes. In this project, a node is represented by URL(ex:http://127.0.0.1:8888). The nodes are stored in a set, to be used by the consensus command to access other node's chains.
+
+\bigskip
+\noindent
+\textbf{Node Registration code:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    def node_registration(self, address):
+
+        url = urlparse(address)
+        if url.netloc:
+            self.nodes.add(url.netloc)
+        elif url.path:
+            self.nodes.add(url.path)
+        else:
+            print("ERROR")
+        
+\end{verbatim}
+\end{footnotesize}
+
+
+\bigskip
+\noindent
+\textbf{Consensus algorithm leveraging stored nodes:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    def consensus(self):
+        ....
+        others = self.nodes
+        
+        ....
+        for node in others:
+
+            response = requests.get(f'http://{node}/chain')
+        
+\end{verbatim}
+\end{footnotesize}
+
+\subsection{Mine}
+
+The mine command allows for new blocks to be mined for the chain. In this project, the difficulty threshold for the proof of work algorithm was set very low so that blocks can be created almost instantaneously. 
+
+\bigskip
+\noindent
+\textbf{Proof of Work algorithm:}
+\begin{footnotesize}
+\begin{verbatim}
+
+  def pow(self, oldBlock):
+      'Proof of Work Algorithm'
+
+      oldproof = oldBlock['proof']
+      oldhash = self.hashing(oldBlock)
+      newproof = 0
+
+      while self.validation_block(oldproof,newproof,oldhash) is False:
+            newproof += 1
+
+        return newproof
+        
+\end{verbatim}
+\end{footnotesize}
+
+Typically in a production scenario, the goal is to have the difficultly threshold set to a level which causes a block to be created every 10 minutes(on average). Because the mining pool's hash power can fluctuate, the difficulty threshold is adjusted to ensure it does not become to easy or difficult in relation to the hash power.~\cite{hid-sp18-414-www-pow-vs-pos}
+
+\bigskip
+\noindent
+\textbf{Validation Block code which is the main component of the PoW algorithm:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    def validation_block(oldproof, proof, oldhash):
+        'Validates the solution to the PoW'
+
+        encoding = f'{oldproof}{proof}{oldhash}'.encode()
+        attempt = hashlib.sha256(encoding).hexdigest()
+        return attempt[:3] == '000'
+
+        
+\end{verbatim}
+\end{footnotesize}
+
+To adjust the difficulty in this project, we can increase the number of consecutive zero's needed to be returned from the hash. Alternatively, if we decrease the number of consecutive zero's, the difficulty is reduced. 
+
+\section{Examples}
+
+\subsection{register}
+
+\bigskip
+\noindent
+\begin{footnotesize}
+\begin{verbatim}
+
+request:
+curl -H "Content-Type: application/json"  \
+        -X POST \
+        -d '{"nodes": ["http://127.0.0.1:8888"]}' \
+        http\://localhost\:9999/register
+
+response:
+{
+  "message": "Nodes Added",
+  "nodes": [
+    "127.0.0.1:8888"
+  ]
+}
+
+\end{verbatim}
+\end{footnotesize}
+
+\subsection{consensus}
+
+\bigskip
+\noindent
+\begin{footnotesize}
+\begin{verbatim}
+
+request:
+curl -H "Content-Type: application/json" \
+        -X GET \
+        http\://localhost\:8888/consensus
+
+response:
+{
+  "message": "Chain not Replaced",
+  "replacement_chain": [
+    {
+      "TS": 1525148850.3083794,
+      "index": 1,
+      "oldhash": "1",
+      "proof": 100,
+      "trans": []
+    }
+  ]
+}
+
+\end{verbatim}
+\end{footnotesize}
+
+\subsection{newtransaction}
+
+\bigskip
+\noindent
+\begin{footnotesize}
+\begin{verbatim}
+
+request:
+curl -H "Content-Type: application/json"  \
+        -X POST \
+        -d '{"sender": "82eab15187ee92c6cd394edd974e", "receiver": 
+        "d4ee26sse15109ee92c6csd94fgd9745", "amount": 7}' \
+        http\://localhost\:8888/newtransaction
+
+response:
+{
+  "amount": 7,
+  "block number": 2,
+  "message": "Transaction will be added",
+  "receiver": "d4ee26sse15109ee92c6csd94fgd9745",
+  "sender": "82eab15187ee92c6cd394edd974e"
+}
+
+\end{verbatim}
+\end{footnotesize}
+
+\subsection{chain}
+
+\bigskip
+\noindent
+\begin{footnotesize}
+\begin{verbatim}
+
+request:
+curl -H "Content-Type: application/json" \
+        -X GET \
+        http\://localhost\:8888/chain
+        
+response:
+{
+  "chain": [
+    {
+      "TS": 1525148850.3083794,
+      "index": 1,
+      "oldhash": "1",
+      "proof": 100,
+      "trans": []
+    }
+  ],
+  "len": 1
+}
+
+\end{verbatim}
+\end{footnotesize}
+
+\subsection{mine}
+
+\bigskip
+\noindent
+\begin{footnotesize}
+\begin{verbatim}
+
+request:
+curl -H "Content-Type: application/json" \
+        -X GET \
+        http\://localhost\:9999/mine
+        
+response:
+{
+  "block number": 3,
+  "message": "New Block Created",
+  "previous hash": "f05eedfae65f9e4aa5220e821ec16158f8a758eb",
+  "proof": 1723,
+  "trans": [
+    {
+      "recipient_address": "82eab15187ee92c6cd394edd974e",
+      "sender_address": "d4ee26sse15109ee92c6csd94fgd9745",
+      "trans_amount": 2
+    },
+    {
+      "recipient_address": "82eab15187ee92c6cd394edd974e",
+      "sender_address": "d4ee26sse15109ee92c6csd94fgd9745",
+      "trans_amount": 8
+    }
+  ]
+}
+
+\end{verbatim}
+\end{footnotesize}
 
 \section{Tools and Technology}
 
@@ -76,46 +408,68 @@ this section.
 \subsection{Flask - Web Framework}
 
 Flask is a micro-framework for Python based on Werkzeug and Jinga 2. The reason 
-it is called a micro framework is because it doesn't require and specific tools 
+it is called a micro framework is because it doesn't require any specific tools 
 or libraries. For this project, Flask was used to build the REST API which 
-allows us to interact and manipulate the blockchain. 
+allows us to interact with specific functions of the blockchain. 
 
-Code Example:
+\bigskip
+\noindent
+\textbf{Code Example:}
+\begin{footnotesize}
 \begin{verbatim}
-  from flask import request, Flask, jsonify
-  app = Flask(__name__)
 
-  @app.route('/mine', methods=['GET'])
-  def mine():
-  	
-\end{verbatim} 
+    from flask import request, Flask, jsonify
+   	app = Flask(__name__)
 
-Install:
-\begin{verbatim}
-  pip install flask
+    @app.route('/mine', methods=['GET'])
+    def mine():
+    
 \end{verbatim}
-
-Console Example:
+\end{footnotesize}
+\noindent
+\textbf{Install:}
+\begin{footnotesize}
 \begin{verbatim}
-   * Running on http://0.0.0.0:9999/ (Press CTRL+C to quit)
-\end{verbatim}
 
+    pip install flask
+    
+\end{verbatim}
+\end{footnotesize}
+\noindent
+\textbf{Console Example:}
+\begin{footnotesize}
+\begin{verbatim}
+
+    * Running on http://0.0.0.0:9999/ (Press CTRL+C to quit)
+    
+\end{verbatim}
+\end{footnotesize}
 \subsection{Hashlib}
 
-Hashlib is a Python module with a common interface to many of the more widely used hash and message digest algorithms.For this project, it was used to call the SHA256 hashing function.
+Hashlib is a Python module with a common interface to many of the more widely used hash and 
+message digest algorithms.For this project, it was used to call the SHA256 hashing function.
 
-Code Example:
+\bigskip
+\noindent
+\textbf{Code Example:}
+\begin{footnotesize}
 \begin{verbatim}
-	def hashing(block):
 
-   		return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
-\end{verbatim} 
+    def hashing(block):
 
-Install:
-\begin{verbatim}
-  easy_install Hashlib
+    return hashlib.sha256(...).hexdigest()
+    
 \end{verbatim}
+\end{footnotesize}
+\noindent
+\textbf{Install:}
+\begin{footnotesize}
+\begin{verbatim}
 
+    easy_install Hashlib
+    
+\end{verbatim}
+\end{footnotesize}
 
 \subsection{Python}
 
@@ -126,40 +480,48 @@ Python is the high-level programming language that was used to develop this proj
 Requests is a Python module that allows you to craft HTTP/1.1 requests without needing to 
 include the query string or to format the POST data.
 
-Code Example:
+\bigskip
+\noindent
+\textbf{Code Example:}
+\begin{footnotesize}
 \begin{verbatim}
-	response = requests.get(f'http://{node}/chain')
-\end{verbatim} 
-
-Install:
-\begin{verbatim}
-  pip install Requests
+    response = requests.get(f'http://{node}/chain')
 \end{verbatim}
-
-
-\subsection{UUID – Universally unique identifiers}
-
-UUID is a Python module that is used to create unique identifiers without the need for a 
-centralized server/registrar. The values created by UUID are 128 bits long and work well with 
-cryptographic hashing which provided useful when assigned node identifiers.
-
-Code Example:
+\end{footnotesize}
+\noindent
+\textbf{Install:}
+\begin{footnotesize}
 \begin{verbatim}
-	nodeid = str(uuid1()).replace('-', '')
-\end{verbatim} 
-
-Install:
-\begin{verbatim}
-  pip install uuid
+    pip install Requests
 \end{verbatim}
+\end{footnotesize}
 
+\subsection{Universally unique identifiers}
 
+Universally unique identifiers(UUID) is a Python module that is used to create unique 
+identifiers without the need for a centralized server/registrar. The values created by UUID 
+are 128 bits long and work well with cryptographic hashing which provided useful when assigned 
+node identifiers.
+
+\bigskip
+\noindent
+\textbf{Code Example:}
+\begin{footnotesize}
+\begin{verbatim}
+    nodeid = str(uuid1()).replace('-', '')
+\end{verbatim}
+\end{footnotesize}
+\noindent
+\textbf{Install:}
+\begin{footnotesize}
+\begin{verbatim}
+    pip install uuid
+\end{verbatim}
+\end{footnotesize}
 
 \section{Conclusion}
 
-Put here an conclusion. Conclusion and abstracts must not have any
-citations in the section.
-
+This project's aim was to provide a blockchain implementation with all the basic functionality needed to deploy it in a multi-node scenario. The project was able to demonstrate a blockchain that could add transactions, create new blocks to the chain and maintain the integrity of the chain across all the nodes on the network. This was accomplished using Python Flask as the backbone to create and deploying nodes.
 
 \begin{acks}
 
