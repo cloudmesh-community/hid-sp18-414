@@ -90,7 +90,6 @@ class E516Chain(object):
         for node in others:
 
             response = requests.get(f'http://{node}/chain')
-
             if response.status_code == 200:
                 length = response.json()['len']
                 chain = response.json()['chain']
