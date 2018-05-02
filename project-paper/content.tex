@@ -1,4 +1,4 @@
-% status: 80
+% status: 95
 % chapter: TBD
 
 \title{Blockchain Implementation with Flask}
@@ -19,8 +19,7 @@
 
 
 \begin{abstract}
-The project is an implementation of Blockchain technology. The main purpose of 
-this paper is to create a simple Blockchain implementation and simulate a 
+The main purpose of this paper is to create a simple Blockchain implementation and simulate a 
 network of nodes interacting with the Blockchain. To accomplish this, all 
 interaction with the Blockchain are brokered through an API deployed using 
 Python Flask. The goal is to have multiple nodes running and interacting with 
@@ -49,18 +48,18 @@ gives a good foundation to build upon.
 
 \section{Overview of Blockchain Technology}
 
-Blockchain 1.0 is considered the first iteration of blockchain Technology. 
-Within this iteration, the goal was to eliminate the centralization and to 
+Blockchain 1.0 is considered the first iteration of blockchain technology. 
+With this iteration, the goal was to eliminate the centralization and to 
 create an open and inclusive global currency. To accomplish this goal, the 
 blockchain is reliant on a distributed ledger which is stored and shared across 
-the network~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}. As records are added to the ledger, they become a permanent and unalterable part of the blockchain. To protect against tampering and bad actors, Consensus algorithms are deployed to ensure that the network is always in agreement as to legitimacy of the chain. The first of these algorithms to be developed (and the one deployed for this project) was the Proof of Work Algorithm. This 
-algorithm relies on extremely difficult cryptographic puzzles(work) which can 
-only be resolved through brute force. Within the network, different members(miners) will attempt to solve this puzzle for a reward. Once they solve the puzzle, they announce the solution to the network. Before any node within the network adopts this new block, they will confirm that the solution provided did in fact solve the puzzle. Once it is confirmed,a new block is recorded on the chain and within this block, new transactions can be stored. From a functional point of view, once a transaction have been placed in the Blockchain, the transaction can be deemed complete.~\cite{hid-sp18-414-financialinnovation-zhao}
+the network~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}. 
+As records(blocks) are added to the ledger, they become a permanent and unalterable part of the blockchain. To protect against tampering and bad actors, Consensus algorithms are deployed to ensure that the network is always in agreement as to legitimacy of the chain. The first of these algorithms to be developed (and the one deployed for this project) was the Proof of Work Algorithm. This algorithm relies on extremely difficult cryptographic puzzles(work) which can 
+only be resolved through brute force. Within the network, different members(miners) will attempt to solve this puzzle for a reward. Once they solve the puzzle, they announce the solution to the network. Before any node within the network adopts this new block, they will confirm that the solution provided did in fact solve the puzzle. Once it is confirmed,a new block is recorded on the chain and within this block, new transactions can be stored. From a functional point of view, once a transaction has been placed in the Blockchain, the transaction can be deemed complete.~\cite{hid-sp18-414-financialinnovation-zhao}
 
 \section{API}
 
 This project utilizes Python Flask to expose some standard operations that 
-are common with any distributed ledger. The two most fundamental functions to any Blockchain 
+are common with any distributed ledger. The two most fundamental functions to any blockchain 
 are the posting of transactions and the mining of new blocks. These functions go hand in hand, 
 as new transactions can only be posted to a block when a new block is mined and added to the chain. Some secondary functions that provide stability and agreement between all the nodes 
 in the network is the Consensus algorithm and the discovery of other nodes in the network 
@@ -87,8 +86,8 @@ network:}
         for node in others:
             response = requests.get(f'http://{node}/chain')
                 if response.status_code == 200:
+                	chain = response.json()['chain']
                     length = response.json()['len']
-                    chain = response.json()['chain']
 
                     if length > len_chain
             
@@ -147,7 +146,7 @@ If the node is a miner node, once the block has been adopted, all the work done 
 The transaction command provides the ability for a node to issue a transaction which will be 
 published on the blockchain. The transaction function is simplified in this project, 
 consisting only of a sender address, a recipient address and an amount. In a production level 
-scenerio, transactions may include a transaction fee which can be set at the time the transaction is created. This is because each block has a max size which limits the number of transactions that can be posted within a block. Because of this fact, all transactions go to a pool (TX pool) and the transactions offering a higher fees are prioritized. 
+scenario, transactions may include a transaction fee which can be set at the time the transaction is created. This is because each block has a max size which limits the number of transactions that can be posted within a block. Because of this fact, all transactions go to a pool (TX pool) and the transactions offering a higher fees are prioritized. 
 
 \bigskip
 \noindent
@@ -410,7 +409,7 @@ this section.
 Flask is a micro-framework for Python based on Werkzeug and Jinga 2. The reason 
 it is called a micro framework is because it doesn't require any specific tools 
 or libraries. For this project, Flask was used to build the REST API which 
-allows us to interact with specific functions of the blockchain. 
+allows us to interact with specific functions of the blockchain~\cite{hid-sp18-414-www-flask-python-microframewor}. 
 
 \bigskip
 \noindent
@@ -447,7 +446,7 @@ allows us to interact with specific functions of the blockchain.
 \subsection{Hashlib}
 
 Hashlib is a Python module with a common interface to many of the more widely used hash and 
-message digest algorithms.For this project, it was used to call the SHA256 hashing function.
+message digest algorithms.For this project, it was used to call the SHA256 hashing function~\cite{hid-sp18-414-www-hashlib-secure}.
 
 \bigskip
 \noindent
@@ -478,7 +477,7 @@ Python is the high-level programming language that was used to develop this proj
 \subsection{Requests}
 
 Requests is a Python module that allows you to craft HTTP/1.1 requests without needing to 
-include the query string or to format the POST data.
+include the query string or to format the POST data~\cite{hid-sp18-414-www-requests-HTTP}.
 
 \bigskip
 \noindent
@@ -501,7 +500,7 @@ include the query string or to format the POST data.
 Universally unique identifiers(UUID) is a Python module that is used to create unique 
 identifiers without the need for a centralized server/registrar. The values created by UUID 
 are 128 bits long and work well with cryptographic hashing which provided useful when assigned 
-node identifiers.
+node identifiers~\cite{hid-sp18-414-www-uuid-objects}.
 
 \bigskip
 \noindent
