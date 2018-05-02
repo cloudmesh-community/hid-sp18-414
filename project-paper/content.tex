@@ -19,11 +19,12 @@
 
 
 \begin{abstract}
-The main purpose of this paper is to create a simple Blockchain implementation and simulate a 
-network of nodes interacting with the Blockchain. To accomplish this, all 
-interaction with the Blockchain are brokered through an API deployed using 
-Python Flask. The goal is to have multiple nodes running and interacting with 
-the Blockchain to show how a distributed ledger system functions.
+  The main purpose of this paper is to create a simple Blockchain
+  implementation and simulate a network of nodes interacting with the
+  Blockchain. To accomplish this, all interaction with the Blockchain
+  are brokered through an API deployed using Python Flask. The goal is
+  to have multiple nodes running and interacting with the Blockchain
+  to show how a distributed ledger system functions.
 
 \end{abstract}
 
@@ -34,44 +35,68 @@ the Blockchain to show how a distributed ledger system functions.
 
 \section{Introduction}
 
-The concept of blockchain technology was first introduced by Satoshi Nakamoto in
-his whitepaper, “Bitcoin: A Peer-to-Peer Electronic Cash System” in early 2008~\cite{hid-sp18-414-www-blockchain-theory-application}. 
-The concepts that were covered in his original paper is the guideline that was 
-followed to build this blockchain example. It is important to note that we have 
-developed a basic example that is meant to be an introduction into how 
-blockchains and distrubuted ledger technology functions. Although the 
-technology has grown tremendously since 2008, this project will focus on the 
-core technology behind Blockchain 1.0. Topics such as smart 
-contracts(Blockchain 2.0) and Decentralized apps(Blockchain 3.0) are not part of 
-this project but understanding the basic design principles behind Blockchain 1.0 
-gives a good foundation to build upon. 
+The concept of blockchain technology was first introduced by Satoshi
+Nakamoto in his whitepaper, ``Bitcoin: A Peer-to-Peer Electronic Cash
+System'' in early
+2008~\cite{hid-sp18-414-www-blockchain-theory-application}.  The
+concepts that were covered in his original paper is the guideline that
+was followed to build this blockchain example. It is important to note
+that we have developed a basic example that is meant to be an
+introduction into how blockchains and distrubuted ledger technology
+functions. Although the technology has grown tremendously since 2008,
+this project will focus on the core technology behind Blockchain
+1.0. Topics such as smart contracts(Blockchain 2.0) and Decentralized
+apps(Blockchain 3.0) are not part of this project but understanding
+the basic design principles behind Blockchain 1.0 gives a good
+foundation to build upon.
 
 \section{Overview of Blockchain Technology}
 
-Blockchain 1.0 is considered the first iteration of blockchain technology. 
-With this iteration, the goal was to eliminate the centralization and to 
-create an open and inclusive global currency. To accomplish this goal, the 
-blockchain is reliant on a distributed ledger which is stored and shared across 
-the network~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}. 
-As records(blocks) are added to the ledger, they become a permanent and unalterable part of the blockchain. To protect against tampering and bad actors, Consensus algorithms are deployed to ensure that the network is always in agreement as to legitimacy of the chain. The first of these algorithms to be developed (and the one deployed for this project) was the Proof of Work Algorithm. This algorithm relies on extremely difficult cryptographic puzzles(work) which can 
-only be resolved through brute force. Within the network, different members(miners) will attempt to solve this puzzle for a reward. Once they solve the puzzle, they announce the solution to the network. Before any node within the network adopts this new block, they will confirm that the solution provided did in fact solve the puzzle. Once it is confirmed,a new block is recorded on the chain and within this block, new transactions can be stored. From a functional point of view, once a transaction has been placed in the Blockchain, the transaction can be deemed complete.~\cite{hid-sp18-414-financialinnovation-zhao}
+Blockchain 1.0 is considered the first iteration of blockchain
+technology.  With this iteration, the goal was to eliminate the
+centralization and to create an open and inclusive global currency. To
+accomplish this goal, the blockchain is reliant on a distributed
+ledger which is stored and shared across the
+network~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}.  As
+records(blocks) are added to the ledger, they become a permanent and
+unalterable part of the blockchain. To protect against tampering and
+bad actors, Consensus algorithms are deployed to ensure that the
+network is always in agreement as to legitimacy of the chain. The
+first of these algorithms to be developed (and the one deployed for
+this project) was the Proof of Work Algorithm. This algorithm relies
+on extremely difficult cryptographic puzzles(work) which can only be
+resolved through brute force. Within the network, different
+members(miners) will attempt to solve this puzzle for a reward. Once
+they solve the puzzle, they announce the solution to the
+network. Before any node within the network adopts this new block,
+they will confirm that the solution provided did in fact solve the
+puzzle. Once it is confirmed,a new block is recorded on the chain and
+within this block, new transactions can be stored. From a functional
+point of view, once a transaction has been placed in the Blockchain,
+the transaction can be deemed
+complete.~\cite{hid-sp18-414-financialinnovation-zhao}
 
 \section{API}
 
-This project utilizes Python Flask to expose some standard operations that 
-are common with any distributed ledger. The two most fundamental functions to any blockchain 
-are the posting of transactions and the mining of new blocks. These functions go hand in hand, 
-as new transactions can only be posted to a block when a new block is mined and added to the chain. Some secondary functions that provide stability and agreement between all the nodes 
-in the network is the Consensus algorithm and the discovery of other nodes in the network 
-through Node Registration. Between these four functions, the project is able to product a 
-functioning Blockchain where multiple nodes can interact by posting transactions and mining 
-new blocks, while staying in sync and maintaining the ledger's integrity.
+This project utilizes Python Flask to expose some standard operations
+that are common with any distributed ledger. The two most fundamental
+functions to any blockchain are the posting of transactions and the
+mining of new blocks. These functions go hand in hand, as new
+transactions can only be posted to a block when a new block is mined
+and added to the chain. Some secondary functions that provide
+stability and agreement between all the nodes in the network is the
+Consensus algorithm and the discovery of other nodes in the network
+through Node Registration. Between these four functions, the project
+is able to product a functioning Blockchain where multiple nodes can
+interact by posting transactions and mining new blocks, while staying
+in sync and maintaining the ledger's integrity.
 
 \subsection{Consensus}
 
-The Consensus command is implemented to provide a mechanism to maintain the Blockchain 
-uniformly across all the nodes within the network. In this project, the consensus is resolved 
-by analyzing which Blockchain across all the nodes is the largest. 
+The Consensus command is implemented to provide a mechanism to
+maintain the Blockchain uniformly across all the nodes within the
+network. In this project, the consensus is resolved by analyzing which
+Blockchain across all the nodes is the largest.
 
 \bigskip
 \noindent
@@ -93,11 +118,12 @@ network:}
             
 \end{verbatim}
 \end{footnotesize}
-When one node successfully mines a new block, they broadcast their solution so that the other 
-nodes can begin the adoption process. The other nodes are then responsible to come to a 
-consensus around the legitimacy of the new block. These nodes can quickly validate that the 
-solution(proof) provided does maintain the integrity of the chain by using the solution to 
-solve the cryptographic puzzle. 
+When one node successfully mines a new block, they broadcast their
+solution so that the other nodes can begin the adoption process. The
+other nodes are then responsible to come to a consensus around the
+legitimacy of the new block. These nodes can quickly validate that the
+solution(proof) provided does maintain the integrity of the chain by
+using the solution to solve the cryptographic puzzle.
 
 \bigskip
 \noindent
@@ -139,14 +165,21 @@ as it's own:}
 \end{verbatim}
 \end{footnotesize}
 
-If the node is a miner node, once the block has been adopted, all the work done to find the solution is lost and must be restarted with the information of the adopted block.
+If the node is a miner node, once the block has been adopted, all the
+work done to find the solution is lost and must be restarted with the
+information of the adopted block.
 
 \subsection{Transactions}
 
-The transaction command provides the ability for a node to issue a transaction which will be 
-published on the blockchain. The transaction function is simplified in this project, 
-consisting only of a sender address, a recipient address and an amount. In a production level 
-scenario, transactions may include a transaction fee which can be set at the time the transaction is created. This is because each block has a max size which limits the number of transactions that can be posted within a block. Because of this fact, all transactions go to a pool (TX pool) and the transactions offering a higher fees are prioritized. 
+The transaction command provides the ability for a node to issue a
+transaction which will be published on the blockchain. The transaction
+function is simplified in this project, consisting only of a sender
+address, a recipient address and an amount. In a production level
+scenario, transactions may include a transaction fee which can be set
+at the time the transaction is created. This is because each block has
+a max size which limits the number of transactions that can be posted
+within a block. Because of this fact, all transactions go to a pool
+(TX pool) and the transactions offering a higher fees are prioritized.
 
 \bigskip
 \noindent
@@ -168,7 +201,10 @@ scenario, transactions may include a transaction fee which can be set at the tim
 
 \subsection{Node Registration}
 
-The registration command provides the ability for a node to register other known nodes. In this project, a node is represented by URL(ex:http://127.0.0.1:8888). The nodes are stored in a set, to be used by the consensus command to access other node's chains.
+The registration command provides the ability for a node to register
+other known nodes. In this project, a node is represented by
+URL (ex: \verb|http://127.0.0.1:8888|). The nodes are stored in a set, to be
+used by the consensus command to access other node's chains.
 
 \bigskip
 \noindent
@@ -210,7 +246,9 @@ The registration command provides the ability for a node to register other known
 
 \subsection{Mine}
 
-The mine command allows for new blocks to be mined for the chain. In this project, the difficulty threshold for the proof of work algorithm was set very low so that blocks can be created almost instantaneously. 
+The mine command allows for new blocks to be mined for the chain. In
+this project, the difficulty threshold for the proof of work algorithm
+was set very low so that blocks can be created almost instantaneously.
 
 \bigskip
 \noindent
@@ -233,7 +271,12 @@ The mine command allows for new blocks to be mined for the chain. In this projec
 \end{verbatim}
 \end{footnotesize}
 
-Typically in a production scenario, the goal is to have the difficultly threshold set to a level which causes a block to be created every 10 minutes(on average). Because the mining pool's hash power can fluctuate, the difficulty threshold is adjusted to ensure it does not become to easy or difficult in relation to the hash power.~\cite{hid-sp18-414-www-pow-vs-pos}
+Typically in a production scenario, the goal is to have the
+difficultly threshold set to a level which causes a block to be
+created every 10 minutes(on average). Because the mining pool's hash
+power can fluctuate, the difficulty threshold is adjusted to ensure it
+does not become to easy or difficult in relation to the hash
+power.~\cite{hid-sp18-414-www-pow-vs-pos}
 
 \bigskip
 \noindent
@@ -252,7 +295,10 @@ Typically in a production scenario, the goal is to have the difficultly threshol
 \end{verbatim}
 \end{footnotesize}
 
-To adjust the difficulty in this project, we can increase the number of consecutive zero's needed to be returned from the hash. Alternatively, if we decrease the number of consecutive zero's, the difficulty is reduced. 
+To adjust the difficulty in this project, we can increase the number
+of consecutive zero's needed to be returned from the
+hash. Alternatively, if we decrease the number of consecutive zero's,
+the difficulty is reduced.
 
 \section{Examples}
 
@@ -406,10 +452,12 @@ this section.
 
 \subsection{Flask - Web Framework}
 
-Flask is a micro-framework for Python based on Werkzeug and Jinga 2. The reason 
-it is called a micro framework is because it doesn't require any specific tools 
-or libraries. For this project, Flask was used to build the REST API which 
-allows us to interact with specific functions of the blockchain~\cite{hid-sp18-414-www-flask-python-microframewor}. 
+Flask is a micro-framework for Python based on Werkzeug and Jinga
+2. The reason it is called a micro framework is because it doesn't
+require any specific tools or libraries. For this project, Flask was
+used to build the REST API which allows us to interact with specific
+functions of the
+blockchain~\cite{hid-sp18-414-www-flask-python-microframewor}.
 
 \bigskip
 \noindent
@@ -472,12 +520,14 @@ message digest algorithms.For this project, it was used to call the SHA256 hashi
 
 \subsection{Python}
 
-Python is the high-level programming language that was used to develop this project.
+Python is the high-level programming language that was used to develop
+this project.
 
 \subsection{Requests}
 
-Requests is a Python module that allows you to craft HTTP/1.1 requests without needing to 
-include the query string or to format the POST data~\cite{hid-sp18-414-www-requests-HTTP}.
+Requests is a Python module that allows you to craft HTTP/1.1 requests
+without needing to include the query string or to format the POST
+data~\cite{hid-sp18-414-www-requests-HTTP}.
 
 \bigskip
 \noindent
@@ -497,17 +547,18 @@ include the query string or to format the POST data~\cite{hid-sp18-414-www-reque
 
 \subsection{Universally unique identifiers}
 
-Universally unique identifiers(UUID) is a Python module that is used to create unique 
-identifiers without the need for a centralized server/registrar. The values created by UUID 
-are 128 bits long and work well with cryptographic hashing which provided useful when assigned 
-node identifiers~\cite{hid-sp18-414-www-uuid-objects}.
+Universally unique identifiers(UUID) is a Python module that is used
+to create unique identifiers without the need for a centralized
+server/registrar. The values created by UUID are 128 bits long and
+work well with cryptographic hashing which provided useful when
+assigned node identifiers~\cite{hid-sp18-414-www-uuid-objects}.
 
 \bigskip
 \noindent
 \textbf{Code Example:}
 \begin{footnotesize}
 \begin{verbatim}
-    nodeid = str(uuid1()).replace('-', '')
+    nodeid = str(uuid1()).replace('-', "")
 \end{verbatim}
 \end{footnotesize}
 \noindent
@@ -520,7 +571,13 @@ node identifiers~\cite{hid-sp18-414-www-uuid-objects}.
 
 \section{Conclusion}
 
-This project's aim was to provide a blockchain implementation with all the basic functionality needed to deploy it in a multi-node scenario. The project was able to demonstrate a blockchain that could add transactions, create new blocks to the chain and maintain the integrity of the chain across all the nodes on the network. This was accomplished using Python Flask as the backbone to create and deploying nodes.
+This project's aim was to provide a blockchain implementation with all
+the basic functionality needed to deploy it in a multi-node
+scenario. The project was able to demonstrate a blockchain that could
+add transactions, create new blocks to the chain and maintain the
+integrity of the chain across all the nodes on the network. This was
+accomplished using Python Flask as the backbone to create and
+deploying nodes.
 
 \begin{acks}
 
