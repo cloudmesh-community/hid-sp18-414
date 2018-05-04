@@ -32,7 +32,7 @@ Blockchain API to demonstrate a distrubuted ledger system.
 		http\://localhost\:8888/consensus
 
   - newtransaction
-    *	curl -H "Content-Type: application/json"  \
+	curl -H "Content-Type: application/json"  \
 		-X POST \
-		-d '{"sender": "82eab15187ee92c6cd394edd974e", "receiver": "d4ee26sse15109ee92c6csd94fgd9745", "amount": 7}' \
+		-d '{"Sender": "John", "Message": "Hello"}' \
 		http\://localhost\:8888/newtransaction
