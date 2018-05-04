@@ -6,6 +6,9 @@ from urllib.parse import urlparse
 from uuid import uuid1
 from flask import request, Flask, jsonify
 
+'Difficulty Setting for PoW'
+POW_Difficulty = 3
+
 class E516Chain(object):
 
     def __init__(self):
@@ -14,7 +17,7 @@ class E516Chain(object):
         self.nodes = set()
 
         # Create the first block in the chain
-        self.create_block(oldhash='1', proof=100)
+        self.create_block('1', 100)
 
     def node_registration(self, address):
 
@@ -26,20 +29,17 @@ class E516Chain(object):
         else:
             print("ERROR")
 
-
     @staticmethod
     def hashing(block):
 
-        return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
+        return hashlib.sha224(json.dumps(block, sort_keys=True).encode()).hexdigest()
 
-    def create_trans(self, sender_address, recipient_address, trans_amount):
-        'Will create a new transaction that should be placed in the next block'
+    def create_message(self, Timestamp, Sender, Message):
+        'Will create a new message that should be placed in the next block'
         self.trans.append({
-
-            'sender_address': sender_address,
-            'recipient_address': recipient_address,
-            'trans_amount': trans_amount,
-
+            'Timestamp': Timestamp,
+            'Sender': Sender,
+            'Message': Message,
         })
 
         return self.prev_block['index'] + 1
@@ -48,7 +48,6 @@ class E516Chain(object):
     def prev_block(self):
 
         'Return the previous block in the chain'
-
         return self.chain[-1]
 
     def create_block(self, proof, oldhash):
@@ -69,6 +68,7 @@ class E516Chain(object):
 
         return block
 
+
     def pow(self, oldBlock):
         'Proof of Work Algorithm'
 
@@ -88,8 +88,9 @@ class E516Chain(object):
 
         len_chain = len(self.chain)
         for node in others:
+            strurl = f'http://{node}/chain'
+            response = requests.get(strurl)
 
-            response = requests.get(f'http://{node}/chain')
             if response.status_code == 200:
                 length = response.json()['len']
                 chain = response.json()['chain']
@@ -108,12 +109,13 @@ class E516Chain(object):
     def validation_block(oldproof, proof, oldhash):
         'Validates the solution to the PoW'
 
-        encoding = f'{oldproof}{proof}{oldhash}'.encode()
-        attempt = hashlib.sha256(encoding).hexdigest()
-        return attempt[:3] == '000'
+        encoding = (str(oldproof)+str(proof)+str(oldhash)).encode()
+        attempt = hashlib.sha224(encoding).hexdigest()
+        return attempt[:POW_Difficulty] == '0' * POW_Difficulty
 
     def validation_chain(self, chain):
 
+        'Loop thru the chain and validate each block'
         last_block = chain[0]
         current_index = 1
 
@@ -121,12 +123,7 @@ class E516Chain(object):
             block = chain[current_index]
 
             last_block_hash = self.hashing(last_block)
-            if block['oldhash'] != last_block_hash:
-                print(1)
-                return False
-
-            if not self.validation_block(last_block['proof'], block['proof'], last_block_hash):
-                print(self.validation_block(last_block['proof'], block['proof'], last_block_hash))
+            if (block['oldhash'] != last_block_hash) or (not self.validation_block(last_block['proof'], block['proof'], last_block_hash)):
                 return False
 
             last_block = block
@@ -140,6 +137,7 @@ E516Chain = E516Chain()
 
 @app.route('/mine', methods=['GET'])
 def mine():
+
     prev_block = E516Chain.prev_block
     p = E516Chain.pow(prev_block)
 
@@ -161,18 +159,18 @@ def mine():
 @app.route('/newtransaction', methods=['POST'])
 def new_trans():
     trans = json.loads(request.data)
-    needed = ['sender', 'receiver', 'amount']
+    needed = ['Sender', 'Message']
 
     if not all(k in trans for k in needed):
         return json.dumps(str('Missing Data'))
 
-    block = E516Chain.create_trans(trans['sender'], trans['receiver'], trans['amount'])
+    block = E516Chain.create_message(time(), trans['Sender'], trans['Message'])
 
-    response = {'message': "Transaction will be added",
+    response = {'message': "Message will be added",
                 'block number': block,
-                'sender': trans['sender'],
-                'receiver': trans['receiver'],
-                'amount': trans['amount'],
+                'Timestamp': time(),
+                'Sender': trans['Sender'],
+                'Message': trans['Message'],
 
                 }
 
@@ -238,6 +236,3 @@ if __name__ == '__main__':
     port = args.port
 
     app.run(host='0.0.0.0', port=port)
-
-
-
