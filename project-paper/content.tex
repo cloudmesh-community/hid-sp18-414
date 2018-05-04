@@ -184,17 +184,16 @@ within a block. Because of this fact, all transactions go to a pool
 
 \bigskip
 \noindent
-\textbf{Create Transaction code:}
+\textbf{Create Message code:}
 \begin{footnotesize}
 \begin{verbatim}
 
-    def create_trans(self, sender, recipient, trans_amount):
+    def create_message(self, Timestamp, Sender, Message):
         ...
         self.trans.append({
-
-            'sender_address': sender,
-            'recipient_address': recipient,
-            'trans_amount': trans_amount,
+            'Timestamp': Timestamp,
+            'Sender': Sender,
+            'Message': Message,
         })
         
 \end{verbatim}
