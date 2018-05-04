@@ -109,7 +109,8 @@ network:}
         ...
         len_chain = len(self.chain)
         for node in others:
-            response = requests.get(f'http://{node}/chain')
+            strurl = f'http://{node}/chain'
+            response = requests.get(strurl)
                 if response.status_code == 200:
                 	chain = response.json()['chain']
                     length = response.json()['len']
@@ -238,8 +239,8 @@ used by the consensus command to access other node's chains.
         
         ....
         for node in others:
-
-            response = requests.get(f'http://{node}/chain')
+            strurl = f'http://{node}/chain'
+            response = requests.get(strurl)
         
 \end{verbatim}
 \end{footnotesize}
@@ -287,9 +288,9 @@ power.~\cite{hid-sp18-414-www-pow-vs-pos}
     def validation_block(oldproof, proof, oldhash):
         'Validates the solution to the PoW'
 
-        encoding = f'{oldproof}{proof}{oldhash}'.encode()
-        attempt = hashlib.sha256(encoding).hexdigest()
-        return attempt[:3] == '000'
+        encoding = (str(oldproof)+str(proof)+str(oldhash)).encode()
+        attempt = hashlib.sha224(encoding).hexdigest()
+        return attempt[:POW_Difficulty] == '0' * POW_Difficulty
 
         
 \end{verbatim}
@@ -364,19 +365,24 @@ response:
 
 request:
 curl -H "Content-Type: application/json"  \
-        -X POST \
-        -d '{"sender": "82eab15187ee92c6cd394edd974e", "receiver": 
-        "d4ee26sse15109ee92c6csd94fgd9745", "amount": 7}' \
-        http\://localhost\:8888/newtransaction
+    -X POST \
+    -d '{"Sender": "John", "Message": "Hello"}' \
+    http\://localhost\:8888/newtransaction
+	
 
 response:
 {
-  "amount": 7,
-  "block number": 2,
-  "message": "Transaction will be added",
-  "receiver": "d4ee26sse15109ee92c6csd94fgd9745",
-  "sender": "82eab15187ee92c6cd394edd974e"
-}
+  "TS": 1525463137.4779193,
+  "index": 2,
+  "oldhash": "66ae3106045d3e00f8d62204a3e269381cd91deb6df574b067c125d9",
+  "proof": 213
+  "trans": [
+    {
+     "Message": "Hello",
+     "Sender": "John",
+     "Timestamp": 1525463137.0406077
+     }
+ }
 
 \end{verbatim}
 \end{footnotesize}
@@ -426,21 +432,22 @@ response:
 {
   "block number": 3,
   "message": "New Block Created",
-  "previous hash": "f05eedfae65f9e4aa5220e821ec16158f8a758eb",
-  "proof": 1723,
+  "previous hash": "5e67bb7aec15844ab65ebc890ff421eddd14eaa7aaca86009225d20c",
+  "proof": 1758,
   "trans": [
     {
-      "recipient_address": "82eab15187ee92c6cd394edd974e",
-      "sender_address": "d4ee26sse15109ee92c6csd94fgd9745",
-      "trans_amount": 2
+      "Message": "Hello",
+      "Sender": "Luciana",
+      "Timestamp": 1525463138.9406605
     },
     {
-      "recipient_address": "82eab15187ee92c6cd394edd974e",
-      "sender_address": "d4ee26sse15109ee92c6csd94fgd9745",
-      "trans_amount": 8
+      "Message": "How are you",
+      "Sender": "Luciana",
+      "Timestamp": 1525463139.3841374
     }
   ]
 }
+
 
 \end{verbatim}
 \end{footnotesize}
