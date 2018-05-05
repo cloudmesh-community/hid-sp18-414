@@ -37,15 +37,17 @@
 
 The concept of blockchain technology was first introduced by Satoshi
 Nakamoto in his whitepaper, ``Bitcoin: A Peer-to-Peer Electronic Cash
-System'' in early 2008~\cite{hid-sp18-414-www-blockchain-theory-application}.  The
-concepts that were outlined from Satwik Kansal at IBM was the guidelines that
-were followed to build this simple blockchain example~\cite{hid-sp18-414-www-blockchain-example}. 
-It is important to note that we have developed a basic example that is meant to be an
+System'' in early
+2008~\cite{hid-sp18-414-www-blockchain-theory-application}.  The
+concepts that were outlined from Satwik Kansal at IBM was the
+guidelines that were followed to build this simple blockchain
+example~\cite{hid-sp18-414-www-blockchain-example}.  It is important
+to note that we have developed a basic example that is meant to be an
 introduction into how blockchains and distrubuted ledger technology
 functions. Although the technology has grown tremendously since 2008,
 this project will focus on the core technology behind Blockchain
-1.0. Topics such as smart contracts(Blockchain 2.0) and Decentralized
-apps(Blockchain 3.0) are not part of this project but understanding
+1.0. Topics such as smart contracts (Blockchain 2.0) and Decentralized
+apps (Blockchain 3.0) are not part of this project but understanding
 the basic design principles behind Blockchain 1.0 gives a good
 foundation to build upon.
 
@@ -57,15 +59,15 @@ centralization and to create an open and inclusive global currency. To
 accomplish this goal, the blockchain is reliant on a distributed
 ledger which is stored and shared across the
 network~\cite{hid-sp18-414-www-promise-bitcoin-blockchain}.  As
-records(blocks) are added to the ledger, they become a permanent and
+records (blocks) are added to the ledger, they become a permanent and
 unalterable part of the blockchain. To protect against tampering and
 bad actors, Consensus algorithms are deployed to ensure that the
 network is always in agreement as to legitimacy of the chain. The
 first of these algorithms to be developed (and the one deployed for
 this project) was the Proof of Work Algorithm. This algorithm relies
-on extremely difficult cryptographic puzzles(work) which can only be
+on extremely difficult cryptographic puzzles (work) which can only be
 resolved through brute force. Within the network, different
-members(miners) will attempt to solve this puzzle for a reward. Once
+members (miners) will attempt to solve this puzzle for a reward. Once
 they solve the puzzle, they announce the solution to the
 network. Before any node within the network adopts this new block,
 they will confirm that the solution provided did in fact solve the
@@ -99,8 +101,8 @@ Blockchain across all the nodes is the largest.
 
 \bigskip
 \noindent
-\textbf{Consensus code which analyzes the current nodes length vs the other nodes in the
-network:}
+\textbf{Consensus code which analyzes the current nodes length vs the
+  other nodes in the network:}
 \begin{footnotesize}
 \begin{verbatim}
 
@@ -118,17 +120,18 @@ network:}
             
 \end{verbatim}
 \end{footnotesize}
+
 When one node successfully mines a new block, they broadcast their
 solution so that the other nodes can begin the adoption process. The
 other nodes are then responsible to come to a consensus around the
 legitimacy of the new block. These nodes can quickly validate that the
-solution(proof) provided does maintain the integrity of the chain by
+solution (proof) provided does maintain the integrity of the chain by
 using the solution to solve the cryptographic puzzle.
 
 \bigskip
 \noindent
 \textbf{Validation code that checks the proposed block's solution
-(\textbf{block['proof']}) as valid:}
+  (\textbf{block['proof']}) as valid:}
 \begin{footnotesize}
 \begin{verbatim}
 
@@ -179,7 +182,7 @@ scenario, transactions may include a transaction fee which can be set
 at the time the transaction is created. This is because each block has
 a max size which limits the number of transactions that can be posted
 within a block. Because of this fact, all transactions go to a pool
-(TX pool) and the transactions offering a higher fees are prioritized.
+ (TX pool) and the transactions offering a higher fees are prioritized.
 
 \bigskip
 \noindent
@@ -272,14 +275,15 @@ was set very low so that blocks can be created almost instantaneously.
 
 Typically in a production scenario, the goal is to have the
 difficultly threshold set to a level which causes a block to be
-created every 10 minutes(on average). Because the mining pool's hash
+created every 10 minutes (on average). Because the mining pool's hash
 power can fluctuate, the difficulty threshold is adjusted to ensure it
 does not become to easy or difficult in relation to the hash
 power.~\cite{hid-sp18-414-www-pow-vs-pos}
 
 \bigskip
 \noindent
-\textbf{Validation Block code which is the main component of the PoW algorithm:}
+\textbf{Validation Block code which is the main component of the PoW
+  algorithm:}
 \begin{footnotesize}
 \begin{verbatim}
 
@@ -498,8 +502,10 @@ blockchain~\cite{hid-sp18-414-www-flask-python-microframewor}.
 \end{footnotesize}
 \subsection{Hashlib}
 
-Hashlib is a Python module with a common interface to many of the more widely used hash and 
-message digest algorithms.For this project, it was used to call the SHA256 hashing function~\cite{hid-sp18-414-www-hashlib-secure}.
+Hashlib is a Python module with a common interface to many of the more
+widely used hash and message digest algorithms.For this project, it
+was used to call the SHA256 hashing
+function~\cite{hid-sp18-414-www-hashlib-secure}.
 
 \bigskip
 \noindent
@@ -552,7 +558,7 @@ data~\cite{hid-sp18-414-www-requests-HTTP}.
 
 \subsection{Universally unique identifiers}
 
-Universally unique identifiers(UUID) is a Python module that is used
+Universally unique identifiers (UUID) is a Python module that is used
 to create unique identifiers without the need for a centralized
 server/registrar. The values created by UUID are 128 bits long and
 work well with cryptographic hashing which provided useful when
